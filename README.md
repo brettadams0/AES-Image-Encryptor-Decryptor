@@ -20,13 +20,12 @@ This repository contains a Python application that uses AES encryption to encryp
 
 1. Clone the repository:
     ```
-    git clone https://github.com/username/Image-Encryptor-Decryptor.git
+    git clone https://github.com/brettadmas0/AES-Image-Encryptor-Decryptor.git
     ```
-    Replace `username` with your GitHub username.
 
 2. Navigate into the project directory:
     ```
-    cd Image-Encryptor-Decryptor
+    cd AES-Image-Encryptor-Decryptor
     ```
 
 3. Run the application:
