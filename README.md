@@ -1,37 +1,37 @@
 # AES Image Encryptor/Decryptor
 
-This repository contains a Python application that uses AES encryption to encrypt and decrypt images. The application has a modern GUI built with Tkinter and ttk.
+A small Tkinter desktop app that encrypts and decrypts image files with AES-256 in CBC mode. You
+pick a file and type a password; the password is SHA-256'd into a 256-bit key, and a fresh random IV
+is generated per encryption and written as the first 16 bytes of the output file.
 
-## Features
+## Requirements
 
-- Encrypt an image file with a password
-- Decrypt an image file with a password
-- Modern GUI for easy use
+Python 3, plus:
 
-## Dependencies
+```sh
+pip install -r requirements.txt   # Pillow, pycryptodome
+```
 
-- Python 3
-- Tkinter
-- ttk
-- PyCrypto
-- PIL
+Note that it is `pycryptodome`, not the long-abandoned `pycrypto` — both import as `Crypto`, so
+installing the wrong one fails in confusing ways. Tkinter ships with CPython on Windows and macOS;
+on Debian/Ubuntu it is a separate `python3-tk` package.
 
-## Usage
+## Running it
 
-1. Clone the repository:
-    ```
-    git clone https://github.com/brettadams0/AES-Image-Encryptor-Decryptor.git
-    ```
+```sh
+python app.py
+```
 
-2. Navigate into the project directory:
-    ```
-    cd AES-Image-Encryptor-Decryptor
-    ```
+Enter a password, then use **Encrypt Image** or **Decrypt Image** to pick a file.
 
-3. Run the application:
-    ```
-    python main.py
-    ```
-    Replace `main.py` with the name of the Python script.
+## What it does not do
 
-4. The application window will open. Enter a password, then click "Encrypt Image" to encrypt an image, or "Decrypt Image" to decrypt an image.
+The password is hashed straight into a key with a single unsalted SHA-256 pass — no KDF, no
+iteration count, no per-file salt — so it is only as strong as the password itself and offers no
+resistance to offline brute force. CBC gives confidentiality but not authentication: a tampered
+ciphertext decrypts to garbage rather than being rejected. Fine for keeping casual eyes off a photo,
+not a substitute for a real encrypted volume.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
